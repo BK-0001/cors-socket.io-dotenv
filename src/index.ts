@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import { ENV, HOST, PORT } from "./env";
 
 const app = express();
 const server = createServer(app);
@@ -29,6 +30,6 @@ app.get("/", (req, res) => {
   res.json({ message: "Hello world" });
 });
 
-server.listen(8000, () => {
-  console.log(`listening at http://localhost:8000`);
+server.listen(PORT, () => {
+  console.log(`listening at http://${HOST}:${PORT} on ${ENV} mode`);
 });
