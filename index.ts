@@ -10,8 +10,12 @@ const io = new Server(server, { cors: { origin: "*" } });
 io.on("connect", (socket) => {
   console.log(`client with id: ${socket.id} `);
 
-  socket.on("message", (...args) => {
-    socket.broadcast.emit("message", ...args);
+  socket.on("message", (message, roomId) => {
+    socket.broadcast.to(roomId).emit("message", message);
+  });
+
+  socket.on("join-room", (roomId, ...args) => {
+    socket.join(roomId);
   });
 
   socket.on("disconnect", () => {
